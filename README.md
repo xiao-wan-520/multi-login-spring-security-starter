@@ -28,8 +28,8 @@ multi-login:
       process-url: /login/phone
       http-method: POST
       param-name:
-      	- phone
-      	- captcha
+        - phone
+        - captcha
       principal-param-name: phone
       credential-param-name: captcha
       provider-bean-name:
@@ -62,58 +62,54 @@ public class PhoneLoginService implements BusinessAuthenticationLogic {
 > 此配置实现了两种登录方式（`phone`, `email`），并支持两种客户端（`customer`, `employee`）。
 
 ```yaml
+# 开发者项目中的 application.yml 配置
 multi-login:
+  # 开启多方式登录 Starter
   enabled: true
 
   global:
-    # 1. 全局配置：定义客户端识别和默认 Handler
+    # 客户端差异化认证（可选）
     request-client-header: X-Request-Client
     client-types:
-      - customer # 列表中的第一个是默认客户端，如果前端没有携带请求头使用这个
+      - customer
       - employee
     handler:
-      # 2. 自定义 Handler Bean Name
-      success: jsonLoginSuccessHandler 
-      failure: jsonLoginFailureHandler 
+      success: jsonLoginSuccessHandler
+  #      failure: jsonLoginFailureHandler
 
+  # 定义所有登录方式的列表
   methods:
-    # ------------------ 登录方式 1: 手机号 (phone) ------------------
+    # --- 1. 手机号验证码登录配置 ---
     - name: phone
+      # 登录请求的路径和方式
       process-url: /login/phone
       http-method: POST
       param-name:
-      	- phone
-      	- captcha
-      principal-param-name: phone
-      credential-param-name: captcha
-      
-      # 3. Provider 路由：与 global.client-types 顺序严格对应
+        - name
+        - phone
+        - nickname
+        - role
+        - captcha
+      # Token中用于认证的主体（principal）和凭证（credential）字段名
+      principal-param-name:
+        - phone
+      credential-param-name:
+        - role
+        - captcha
+      # 认证Provider的实现类名（开发者必须提供的Bean）
       provider-bean-name:
-        - phoneCustomerProvider # 对应 customer 客户端
-        - phoneEmployeeProvider # 对应 employee 客户端
+        - phoneCustomerLoginService
+        - phoneEmployeeLoginService
 
-    # ------------------ 登录方式 2: 邮箱 (email) ------------------
-    - name: email
-      process-url: /login/email
-      http-method: POST
-      param-name:
-      	- email
-      	- nickname
-      	- password
-      	- captcha
-      principal-param-name: 
-      	- email
-      credential-param-name: 
-      	- password
-      	- captcha
-      
-      # 4. 覆盖 Handler：email 登录使用默认失败处理器
-      handler:
-        failure: defaultFailureHandler
-        
-      provider-bean-name:
-        - emailCustomerProvider
-        - emailEmployeeProvider
+    # --- 2. 邮箱验证码登录配置 ---
+    - name: email    # 默认 process-url: /login/email
+      principal-param-name: email    # 默认 param-name = principal-param-name + credential-param-name
+      credential-param-name:
+        - captcha
+        - role
+      request-client-header: X-Request-Client-Email
+      client-types: employee
+      provider-bean-name: emailLoginService
 ```
 
 

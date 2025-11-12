@@ -18,7 +18,7 @@ public class LoginMethodConfig {
     private String processUrl;
 
     // 请求方式
-    private String httpMethod;
+    private String httpMethod = "POST";
 
     // 所有从请求中提取的参数名
     private List<String> paramName = new ArrayList<>();

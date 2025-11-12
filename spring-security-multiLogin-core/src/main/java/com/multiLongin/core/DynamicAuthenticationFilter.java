@@ -1,12 +1,12 @@
 package com.multiLongin.core;
 
+import com.multiLongin.core.exception.MultiLoginException;
 import com.multiLongin.core.properties.config.GlobalConfig;
 import com.multiLongin.core.properties.config.LoginMethodConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -90,7 +90,7 @@ public class DynamicAuthenticationFilter extends AbstractAuthenticationProcessin
                 // 默认支持配置的第一个客户端类型
                 return clientTypes.get(0);
             }
-            throw new BadCredentialsException("Client type cannot be determined and no default type is configured.");
+            throw new MultiLoginException("Client type cannot be determined and no default type is configured.");
         }
 
         return clientType;

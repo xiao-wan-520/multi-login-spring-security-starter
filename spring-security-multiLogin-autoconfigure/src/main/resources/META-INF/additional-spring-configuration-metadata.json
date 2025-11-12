@@ -63,17 +63,19 @@
     {
       "name": "multi-login.methods[].process-url",
       "type": "java.lang.String",
-      "description": "该登录方式的认证请求处理 URL."
+      "description": "该登录方式的认证请求处理 URL.",
+      "defaultValue": "/login/{name}"
     },
     {
       "name": "multi-login.methods[].http-method",
       "type": "java.lang.String",
-      "description": "认证请求的 HTTP 方法，如 'POST'.."
+      "description": "认证请求的 HTTP 方法，如 'POST'..",
+      "defaultValue": "POST"
     },
     {
       "name": "multi-login.methods[].param-name",
       "type": "java.util.List<java.lang.String>",
-      "description": "需要从请求中提取的所有普通附加参数名列表."
+      "description": "需要从请求中提取的所有普通附加参数名列表, 默认为principal-param-name与credential-param-name参数和."
     },
     {
       "name": "multi-login.methods[].principal-param-name",

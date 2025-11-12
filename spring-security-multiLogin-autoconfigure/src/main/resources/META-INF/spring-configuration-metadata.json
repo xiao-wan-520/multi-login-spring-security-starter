@@ -35,17 +35,20 @@
     {
       "name": "multi-login.global.client-types",
       "type": "java.util.List<java.lang.String>",
-      "description": "全局定义的客户端类型列表。用于路由到不同的 Provider."
+      "description": "全局定义的客户端类型列表。用于路由到不同的 Provider.",
+      "defaultValue": "DEFAULT"
     },
     {
       "name": "multi-login.global.handler.success",
       "type": "java.lang.String",
-      "description": "全局的认证成功处理器（AuthenticationSuccessHandler）的 Spring Bean 名称."
+      "description": "全局的认证成功处理器（AuthenticationSuccessHandler）的 Spring Bean 名称.",
+      "defaultValue": "defaultSuccessHandler"
     },
     {
       "name": "multi-login.global.handler.failure",
       "type": "java.lang.String",
-      "description": "全局的认证失败处理器（AuthenticationFailureHandler）的 Spring Bean 名称."
+      "description": "全局的认证失败处理器（AuthenticationFailureHandler）的 Spring Bean 名称.",
+      "defaultValue": "defaultFailureHandler"
     },
     {
       "name": "multi-login.methods",
@@ -60,7 +63,8 @@
     {
       "name": "multi-login.methods[].process-url",
       "type": "java.lang.String",
-      "description": "该登录方式的认证请求处理 URL."
+      "description": "该登录方式的认证请求处理 URL.",
+      "defaultValue": "/login/{name}"
     },
     {
       "name": "multi-login.methods[].http-method",
@@ -71,7 +75,7 @@
     {
       "name": "multi-login.methods[].param-name",
       "type": "java.util.List<java.lang.String>",
-      "description": "需要从请求中提取的所有普通附加参数名列表."
+      "description": "需要从请求中提取的所有普通附加参数名列表, 默认为principal-param-name与credential-param-name参数和."
     },
     {
       "name": "multi-login.methods[].principal-param-name",

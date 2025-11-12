@@ -1,1 +1,2 @@
 com.multiLogin.autoconfigure.MultiLoginAutoConfiguration
+com.multiLogin.autoconfigure.MultiLoginSecurityAutoConfiguration

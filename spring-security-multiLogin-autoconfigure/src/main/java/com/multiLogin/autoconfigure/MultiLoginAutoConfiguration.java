@@ -1,7 +1,6 @@
 package com.multiLogin.autoconfigure;
 
 import com.multiLogin.autoconfigure.config.DefaultLoginHandlerConfig;
-import com.multiLogin.autoconfigure.config.MultiLoginSecurityConfigure;
 import com.multiLongin.core.DynamicAuthenticationFilter;
 import com.multiLongin.core.RouterAuthenticationProvider;
 import com.multiLongin.core.properties.MultiLoginProperties;
@@ -27,7 +26,7 @@ import java.util.Optional;
  * @author wan
  */
 @AutoConfiguration
-@Import({MultiLoginSecurityConfigure.class, DefaultLoginHandlerConfig.class})
+@Import(DefaultLoginHandlerConfig.class)
 @EnableConfigurationProperties(MultiLoginProperties.class)
 @ConditionalOnProperty(prefix = "multi-login", name = "enabled", havingValue = "true")
 public class MultiLoginAutoConfiguration {

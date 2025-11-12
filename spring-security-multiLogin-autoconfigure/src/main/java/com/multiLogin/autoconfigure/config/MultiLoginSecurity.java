@@ -1,14 +1,10 @@
 package com.multiLogin.autoconfigure.config;
 
-import com.multiLogin.autoconfigure.expend.FilterChainExtend;
 import com.multiLongin.core.DynamicAuthenticationFilter;
 import jakarta.annotation.Resource;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -16,26 +12,28 @@ import java.util.List;
 
 /**
  * @author wan
- * spring security 核心配置
+ * spring security 配置
  */
 @Configuration
-public class MultiLoginSecurityConfigure {
+public class MultiLoginSecurity {
 
     @Resource
-    private List<AbstractAuthenticationProcessingFilter> multiLoginFilters;
-
-    @Bean
-    @ConditionalOnMissingBean(FilterChainExtend.class)
-    public FilterChainExtend filterChainExtend(){
-        return http -> {
-        };
-    }
+    private ApplicationContext applicationContext;
 
     /**
-     * 配置 SecurityFilterChain 以注入自定义 Filter
+     * 注入自定义 Filter
+     * 初始化多登录过滤器
      */
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, FilterChainExtend filterChainExtend) throws Exception {
+    public void initializeMultiLoginFilters(HttpSecurity http) throws Exception {
+
+        // 不开启多方式登录
+        List<AbstractAuthenticationProcessingFilter> multiLoginFilters;
+        try {
+            Object loginFilters = applicationContext.getBean("multiLoginFilters");
+            multiLoginFilters = (List<AbstractAuthenticationProcessingFilter>) loginFilters;
+        } catch (Exception ignored) {
+            return;
+        }
 
         // 允许配置的登录路径通过
         List<String> permittedUrls = multiLoginFilters.stream()
@@ -49,14 +47,8 @@ public class MultiLoginSecurityConfigure {
 
         // 放行登录接口
         http
-                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(permittedUrls.toArray(new String[0])).permitAll()
                 );
-
-        // 拓展接口配置导入
-        filterChainExtend.extend(http);
-
-        return http.build();
     }
 }

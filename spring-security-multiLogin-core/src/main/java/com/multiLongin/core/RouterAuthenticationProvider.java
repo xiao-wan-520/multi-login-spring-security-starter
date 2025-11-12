@@ -1,8 +1,8 @@
 package com.multiLongin.core;
 
+import com.multiLongin.core.exception.MultiLoginException;
 import com.multiLongin.core.service.BusinessAuthenticationLogic;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
@@ -37,14 +37,14 @@ public class RouterAuthenticationProvider implements AuthenticationProvider {
         BusinessAuthenticationLogic businessLogic = businessProviders.get(clientType);
 
         if (businessLogic == null) {
-            throw new BadCredentialsException("Login method provider not configured for client type: " + clientType);
+            throw new MultiLoginException("Login method provider not configured for client type: " + clientType);
         }
 
         // 3. 执行业务逻辑
         Object principal = businessLogic.authenticate(token.getAllParams());
 
         if (principal == null) {
-            throw new BadCredentialsException("Authentication failed: User details is null.");
+            throw new MultiLoginException("Authentication failed: User details is null.");
         }
 
         // 4. 认证成功，设置已认证状态并返回

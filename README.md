@@ -1,6 +1,6 @@
-# Spring Security Multi-Login Starter: 多方式登录扩展包
+# Spring Security Multi-Login Starter
 
-`spring-security-multi-login-starter` 是一个**配置驱动**的 Spring Security 扩展包。它通过自动装配机制，极大地简化了 **多方式登录**（如手机验证码、邮箱密码）和 **多客户端认证**（如 Customer、Employee）的集成工作。
+`spring-security-multi-login-starter` 是一个配置驱动的 Spring Security 扩展包，旨在通过自动装配机制，极大地简化多方式登录（如手机验证码、邮箱密码等）和多客户端（如 Customer、Employee）的接入。
 
 ## 0. 核心设计原则
 
@@ -12,12 +12,11 @@
 | **极简集成**      | 通过注入 `MultiLoginSecurity`，将动态 Filter 注册到认证链中。 | `MultiLoginSecurityConfigure`                                |
 
 
-
-## 1. 快速入门 (Quick Start)
+##  1. 快速入门 (Quick Start)
 
 ### 1.1 依赖引入
 
-```xml
+```
 <dependency>
     <groupId>com.multiLogin</groupId>
     <artifactId>spring-security-multiLogin-starter</artifactId>
@@ -25,34 +24,28 @@
 </dependency>
 ```
 
+### 1.2 简单配置
 
-
-### 1.2 简单配置（手机验证码登录）
-
-此配置实现了**一个登录方式 (`phone`)** 和**一个客户端类型 (`customer`)**，并使用 Starter 提供的默认成功/失败处理器。
+此配置只实现了**一个登录方式**（`phone`），只有**一个客户端类型**（`customer`），并使用 Starter 提供的**默认成功/失败处理器**。
 
 ```yaml
 multi-login:
-  enabled: true # 开启 Starter
+  enabled: true   # 开启 Starter
   methods:
-    - name: phone
-      process-url: /login/phone # 登录请求路径
+    phone:
+      process-url: /login/phone       # 登录请求路径
       http-method: POST
-      param-name: # 登录请求需携带的所有参数名
+      param-name:                 # 登录请求需携带的所有参数名
         - phone
         - captcha
-      principal-param-name: phone # 用于认证的主体参数名
-      credential-param-name: captcha # 用于认证的凭证参数名
-      provider-bean-name: # 认证逻辑实现的 Bean 名称
+      principal-param-name: phone             # 用于认证的主体参数名
+      credential-param-name: captcha          # 用于认证的凭证参数名
+      provider-bean-name:                     # 认证逻辑实现的 Bean 名称
         - phoneLoginService
 ```
 
-
-
 ### 1.3 业务实现
-
 开发者只需实现 `BusinessAuthenticationLogic` 接口，完成业务校验逻辑。
-
 ```java
 @Service("phoneLoginService")
 public class PhoneLoginService implements BusinessAuthenticationLogic {
@@ -70,10 +63,7 @@ public class PhoneLoginService implements BusinessAuthenticationLogic {
 }
 ```
 
-
-
 ### 1.4 Spring Security 集成配置
-
 在 Spring Security 配置中，注入 `MultiLoginSecurity` 并调用其关键的初始化方法。
 
 ```java
@@ -86,31 +76,29 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // 关键方法：将动态认证 Filter 注册到 Spring Security 认证链中
-        multiLoginSecurity.initializeMultiLoginFilters(http); 
-        
+        multiLoginSecurity.initializeMultiLoginFilters(http);
+
         http.csrf(AbstractHttpConfigurer::disable)
-            .cors(AbstractHttpConfigurer::disable)
-            .sessionManagement((sessionManagement) -> {
-                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 通常用于 RESTful API
-            });
+                .cors(AbstractHttpConfigurer::disable)
+                .sessionManagement((sessionManagement) -> {
+                    sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 通常用于 RESTful API
+                });
         return http.build();
     }
 }
 ```
 
-
-
 ### 1.5 启动与测试
 
-- **请求:** `POST` 到 `/login/phone`
+- **请求**: POST 到 /login/phone
 
-- **参数:** 携带 `phone` 和 `captcha`
+- **参数**: 携带 phone 和 captcha
 
-- **客户端 Header:** 无特殊要求。
+- **客户端 Header**: 无特殊要求。
 
-- **结果:** 认证成功返回 Starter 默认的String成功信息。
+- **结果**: 认证成功返回 Starter 默认的String成功信息。
 
-  
+
 
 ## 2. 高级配置（多方式登录与多客户端）
 
@@ -118,7 +106,7 @@ public class SecurityConfig {
 
 ### 2.1 完整 YAML 配置示例
 
-```yaml
+```yml
 multi-login:
   enabled: true 
 
@@ -160,13 +148,10 @@ multi-login:
         - role
       # 关键：针对此种登录方式，可单独覆盖客户端区分的 Header, 如果没有携带请求头，默认会走第一个处理逻辑
       request-client-header: X-Request-Client-Email 
-      # 关键：此登录方式只允许 employee 客户端使用
       client-types: employee 
       provider-bean-name: 
         - emailLoginService
 ```
-
-
 
 ### 2.2 客户端 Provider 路由机制
 
@@ -175,7 +160,6 @@ multi-login:
 | `customer`                           | `phoneCustomerLoginService`                                  |
 | `employee`                           | `phoneEmployeeLoginService`                                  |
 | **缺失/其他**                        | **`phoneCustomerLoginService`** (自动使用 `provider-bean-name` 列表中的**第一个**作为默认) |
-
 
 
 ## 3. 登录参数简化配置
@@ -190,7 +174,7 @@ multi-login:
       provider-bean-name: phoneLoginService
       # 注意: 在此简化配置下，param-name 默认为 principal-param-name + credential-param-name
       # 即：param-name: [phone, captcha]
-      
+
     email:
       principal-param-name: email    # process-url 默认为 /login/email
       credential-param-name:
@@ -199,3 +183,8 @@ multi-login:
       provider-bean-name: emailLoginService
       # 注意: 在此简化配置下，param-name 默认为 [email, captcha, role]
 ```
+
+
+
+
+

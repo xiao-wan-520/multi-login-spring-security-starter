@@ -4,12 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.multiLogin</groupId>
-        <artifactId>spring-security-multiLogin-parent</artifactId>
-        <version>1.0.0</version>
+        <groupId>io.github.xiao-wan-520</groupId>
+        <artifactId>multi-login-spring-security-parent</artifactId>
+        <version>0.0.1</version>
     </parent>
 
-    <artifactId>spring-security-multiLogin-core</artifactId>
+    <name>Multi Login - AutoConfigure</name>
+    <description>Auto configuration for multi-login starter.</description>
+    <artifactId>multi-login-spring-security-core</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

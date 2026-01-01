@@ -1,16 +1,6 @@
-# Spring Security Multi-Login Starter
+# multi-login-spring-security-starter
 
-`spring-security-multi-login-starter` 是一个配置驱动的 Spring Security 扩展包，旨在通过自动装配机制，极大地简化多方式登录（如手机验证码、邮箱密码等）和多客户端（如 Customer、Employee）的接入。
-
-## 0. 核心设计原则
-
-| **原则**          | **描述**                                                     |
-| ----------------- | ------------------------------------------------------------ |
-| **配置优先**      | 所有登录方式和客户端配置通过 `application.yml` 声明。        |
-| **业务解耦**      | 开发者只需实现 `BusinessAuthenticationLogic` 业务逻辑接口，无需接触 Spring Security 底层接口。 |
-| **Provider 路由** | 根据客户端请求头，将认证请求路由到对应的业务 Provider。      |
-| **极简集成**      | 通过注入 `MultiLoginSecurity`，将动态 Filter 注册到认证链中。 |
-
+`multi-login-spring-security-starter` 是一个配置驱动的 Spring Security 扩展包，旨在通过自动装配机制，极大地简化多方式登录（如手机验证码、邮箱密码等）和多客户端（如 Customer、Employee）的接入。
 
 ##  1. 快速入门 (Quick Start)
 
@@ -18,9 +8,9 @@
 
 ```
 <dependency>
-    <groupId>com.multiLogin</groupId>
+    <groupId>io.github.xiao-wan-520</groupId>
     <artifactId>spring-security-multiLogin-starter</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1</version>
 </dependency>
 ```
 

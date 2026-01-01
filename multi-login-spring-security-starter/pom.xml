@@ -4,12 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.multiLogin</groupId>
-        <artifactId>spring-security-multiLogin-parent</artifactId>
-        <version>1.0.0</version>
+        <groupId>io.github.xiao-wan-520</groupId>
+        <artifactId>multi-login-spring-security-parent</artifactId>
+        <version>0.0.1</version>
     </parent>
 
-    <artifactId>spring-security-multiLogin-starter</artifactId>
+    <name>Multi Login - Starter</name>
+    <description>Spring Boot Starter for multi-login authentication.</description>
+    <artifactId>multi-login-spring-security-starter</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,14 +21,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.multiLogin</groupId>
-            <artifactId>spring-security-multiLogin-autoconfigure</artifactId>
-            <version>1.0.0</version>
+            <groupId>io.github.xiao-wan-520</groupId>
+            <artifactId>multi-login-spring-security-autoconfigure</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.multiLogin</groupId>
-            <artifactId>spring-security-multiLogin-core</artifactId>
-            <version>1.0.0</version>
+            <groupId>io.github.xiao-wan-520</groupId>
+            <artifactId>multi-login-spring-security-core</artifactId>
         </dependency>
     </dependencies>
 

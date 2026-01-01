@@ -13,7 +13,7 @@ public interface BusinessAuthenticationLogic {
 
     /**
      * 执行业务认证逻辑
-     * @param allParams 包含请求中所有配置参数的 Map<String, Object>
+     * @param allParams 登录请求所有参数集合（键值对格式：Map&lt;String, Object&gt;）
      * @return 认证成功后的用户主体信息（例如 UserDetails 或自定义的 AuthenticationPrincipal）
      */
     Object authenticate(Map<String, String> allParams) throws AuthenticationException;

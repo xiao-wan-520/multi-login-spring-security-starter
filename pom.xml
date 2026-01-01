@@ -4,15 +4,44 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.multiLogin</groupId>
-    <artifactId>spring-security-multiLogin-parent</artifactId>
-    <version>1.0.0</version>
+    <groupId>io.github.xiao-wan-520</groupId>
+    <artifactId>multi-login-spring-security-parent</artifactId>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
     <modules>
-        <module>spring-security-multiLogin-core</module>
-        <module>spring-security-multiLogin-autoconfigure</module>
-        <module>spring-security-multiLogin-starter</module>
+        <module>multi-login-spring-security-core</module>
+        <module>multi-login-spring-security-autoconfigure</module>
+        <module>multi-login-spring-security-starter</module>
     </modules>
+
+    <name>Multi Login Spring Security Starter</name>
+    <description>一个支持多端登录（手机号/邮箱/账号）的 Spring Security 扩展组件</description>
+    <url>https://github.com/xiao-wan-520/multi-login-spring-security-starter</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>wan</id>
+            <name>wan</name>
+            <email>2653990378@qq.com</email>
+            <roles>
+                <role>Project Manager</role>
+                <role>Architect</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>https://github.com/xiao-wan-520/multi-login-spring-security-starter.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:xiao-wan-520/multi-login-spring-security-starter.git</developerConnection>
+        <url>https://github.com/xiao-wan-520/multi-login-spring-security-starter</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -24,6 +53,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.github.xiao-wan-520</groupId>
+                <artifactId>multi-login-spring-security-autoconfigure</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.xiao-wan-520</groupId>
+                <artifactId>multi-login-spring-security-core</artifactId>
+                <version>0.0.1</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
@@ -63,6 +102,63 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+
+            <!-- 新版发布插件 -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                </configuration>
+            </plugin>
+
+            <!-- GPG 签名插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 源码打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Javadoc打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

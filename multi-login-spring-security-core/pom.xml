@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.xiao-wan-520</groupId>
         <artifactId>multi-login-spring-security-parent</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </parent>
 
     <name>Multi Login - AutoConfigure</name>
@@ -34,7 +34,8 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-            <optional>false</optional>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

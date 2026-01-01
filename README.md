@@ -7,12 +7,12 @@
 ##  1. 快速入门 (Quick Start)
 
 ### 1.1 依赖引入
-
+**版本号请替换为GitHub/Maven中央仓库的最新版本**
 ```
 <dependency>
     <groupId>io.github.xiao-wan-520</groupId>
     <artifactId>multi-login-spring-security-starter</artifactId>
-    <version>0.0.1</version>
+    <version>${latest.version}</version>
 </dependency>
 ```
 

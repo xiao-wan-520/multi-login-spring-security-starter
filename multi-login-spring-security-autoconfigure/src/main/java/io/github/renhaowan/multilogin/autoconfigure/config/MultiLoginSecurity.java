@@ -1,6 +1,6 @@
-package com.multiLogin.autoconfigure.config;
+package io.github.renhaowan.multilogin.autoconfigure.config;
 
-import com.multiLogin.core.DynamicAuthenticationFilter;
+import io.github.renhaowan.multilogin.core.DynamicAuthenticationFilter;
 import jakarta.annotation.Resource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +24,7 @@ public class MultiLoginSecurity {
      * 注入自定义 Filter
      * 初始化多登录过滤器
      */
+    @SuppressWarnings("unchecked")
     public void initializeMultiLoginFilters(HttpSecurity http) throws Exception {
 
         // 不开启多方式登录

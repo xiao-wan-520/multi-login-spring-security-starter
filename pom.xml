@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.xiao-wan-520</groupId>
+    <groupId>io.github.renhao-wan</groupId>
     <artifactId>multi-login-spring-security-parent</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>pom</packaging>
     <modules>
         <module>multi-login-spring-security-core</module>
@@ -16,7 +16,7 @@
 
     <name>Multi Login Spring Security Starter</name>
     <description>一个支持多端登录（手机号/邮箱/账号）的 Spring Security 扩展组件</description>
-    <url>https://github.com/xiao-wan-520/multi-login-spring-security-starter</url>
+    <url>https://github.com/Renhao-Wan/multi-login-spring-security-starter</url>
 
     <licenses>
         <license>
@@ -38,9 +38,9 @@
     </developers>
 
     <scm>
-        <connection>https://github.com/xiao-wan-520/multi-login-spring-security-starter.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:xiao-wan-520/multi-login-spring-security-starter.git</developerConnection>
-        <url>https://github.com/xiao-wan-520/multi-login-spring-security-starter</url>
+        <connection>https://github.com/Renhao-Wan/multi-login-spring-security-starter.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Renhao-Wan/multi-login-spring-security-starter.git</developerConnection>
+        <url>https://github.com/Renhao-Wan/multi-login-spring-security-starter</url>
     </scm>
 
     <properties>
@@ -54,14 +54,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.github.xiao-wan-520</groupId>
+                <groupId>io.github.renhao-wan</groupId>
                 <artifactId>multi-login-spring-security-autoconfigure</artifactId>
-                <version>0.0.2</version>
+                <version>0.0.3</version>
             </dependency>
             <dependency>
-                <groupId>io.github.xiao-wan-520</groupId>
+                <groupId>io.github.renhao-wan</groupId>
                 <artifactId>multi-login-spring-security-core</artifactId>
-                <version>0.0.2</version>
+                <version>0.0.3</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
